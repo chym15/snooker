@@ -133,6 +133,30 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);direc
     <button class="abtn abtn-reset" onclick="resetAll()">&#128260; &#1489;&#1491;&#1497;&#1511;&#1514; &#1502;&#1500;&#1488;&#1497; &#1495;&#1491;&#1513;&#1492;</button>
   </div>
 </div>
+
+<div class="cat" id="freeCat">
+  <div class="cat-hdr" onclick="toggleCat(this)">
+    <span class="cat-ico">✏️</span>
+    <span class="cat-nm">הוספה חופשית</span>
+    <span class="cat-cnt" id="cnt_free">0 פריטים</span>
+    <span class="chevron">▼</span>
+  </div>
+  <div class="cat-body" id="freeCatBody">
+    <div id="freeItemsList"></div>
+    <div style="padding:12px 16px;border-top:1px solid var(--border);">
+      <div id="freeInputArea" style="display:flex;gap:8px;align-items:center;">
+        <input id="freeInput" type="text" placeholder="כתוב פריט חופשי..." style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:Heebo,sans-serif;font-size:14px;direction:rtl;outline:none;" onkeydown="if(event.key==='Enter')addFreeItem()">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button class="qbtn" style="border-radius:6px 0 0 6px;" onclick="changeFreeQty(-1)">−</button>
+          <input id="freeQty" type="number" min="1" value="1" class="qinp" style="width:44px;">
+          <button class="qbtn" style="border-radius:0 6px 6px 0;" onclick="changeFreeQty(1)">+</button>
+        </div>
+        <button onclick="addFreeItem()" style="background:var(--accent);color:#000;border:none;padding:9px 16px;border-radius:8px;font-family:Heebo,sans-serif;font-size:13px;font-weight:700;cursor:pointer;">הוסף</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="floatbar" id="floatbar">
   <div class="float-info">&#1504;&#1489;&#1495;&#1512;&#1493; <strong id="floatCnt">0</strong> &#1502;&#1493;&#1510;&#1512;&#1497;&#1501; &#1495;&#1505;&#1512;&#1497;&#1501;</div>
   <button class="btn btn-g" onclick="clearAll()">&#1504;&#1511;&#1492;</button>
@@ -144,8 +168,8 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);direc
 var PK="pkJ11hHbIp0vWdqQz", SID="service_5g041pb", TID="template_3q9mit9", EM="chym15@gmail.com";
 
 var INV = {};
-INV = {"שתיה": ["בירה גולדסטאר 10%", "בירה שיינדי", "בירה מכבי", "בירה גולדסטאר לא מסונן", "בירה סטלה", "בירה קורונה", "בירה נגב", "בירה שפירא", "בירה גמס", "בירה אלכסנדר", "בירה מלכה", "בירה עמק האלה", "מים בטעם תפוח", "מים בטעם אפרסק", "מים בטעם ענבים", "אקסל", "בלו די רגיל", "בלו די ענבים", "בלו די אבטיח", "בלו די מלון תפוח", "פיוז טי אפרסק", "פיוז טי אבטיח", "סודה", "מים קטן", "קולה רגיל", "קולה זירו", "ספרייט רגיל", "ספרייט זירו", "פנטה", "מים גדול", "תפוזים גדול"], "שימורים": ["זיתים עם גרעין", "זיתים ירוקים פרוסות", "זיצים שחורים פרוסות", "שיפקה", "מלפפון חמוץ", "פטריות", "תירס"], "רטבים": ["רוטב פיצה", "קטשופ", "שום מיונז", "מיונז רגיל", "צילי", "סחוג עדין", "סחוג חריף", "חמאה", "גבינה צהובה", "חלב"], "פירות קפואים": ["תות", "מנגו", "בננה", "תמר", "מלון"], "מטוגנים": ["ציפס", "כדורי פירה", "ציפס בטטה", "טבעות בצל"], "בצקים": ["פיצה", "פוקצה", "באגטים"], "חד פעמי כללי": ["כוסות לשייק ובירה", "כוסות פלסטיק רגיל", "כוסות קרטון", "צלחות לציפס", "צלחות למטוגנים קטן", "צלחות למאנציס", "צלחות לטוסטים", "צלחות לרטבים", "נייר לטוסט", "כפפות", "סינרים", "קיסמים", "מקלות לקפה", "קופסאות לגלי", "קשים", "שקיות הקפאה", "שקיות גופייה", "טישו", "נייר ניגוב גליל", "נייר מגבת", "נייר אפיה"], "מתוקים": ["גלי עם סוכר", "גלי רטוב בלי סוכר"], "אחר מטבח": ["סוכר גדול", "סוכר שקיות", "סוכרזית שקיות", "מלח", "שמן לטיגון", "שמן זית", "אורגנו", "תבלין צילי", "קפה שחור", "פולי קפה", "תה", "בוטנים מלוחים", "בוטנים מסוכרים", "בייגלה", "מאנציס", "זעתר", "חלב", "גבינה צהובה"], "חומרי ניקוי": ["שקיות אשפה", "סמרטוט קטן", "סמרטוט רצפה", "חומר רצפות", "נוזל כלים", "אקונומיקה", "מסיר שומנים", "ספריי חלונות", "סקוצים לכלים", "מטאטא", "מגב"], "אלכוהול": ["וואן גוך אסאי", "וואן גוך אבטיח", "וואן גוך אפרסק", "רוברטו רבאלי רגיל", "רוברטו קבאלי מוחיטו", "רוברטו קבאלי מנגו", "גין", "ערק", "וויסקי דאבל בלאך", "וויסקי גולד לייבל", "וויסקי מונקי", "וויסקי שיבס", "וויסקי גלנליבט פאונדרס", "וויסקי גלנליבט 15", "וויסקי גלנמורנגי", "וויסקי מקאלן 12"], "ציוד": ["מקלות", "ראשים למקלות", "גירים", "מנורות", "חומר ניקוי לכדורים", "מברשת לשולחנות", "נייר למדפסת קבלות", "כפפות למשחק"]};
-var ICONS = {"שתיה": "🥤", "שימורים": "🥫", "רטבים": "🪹", "פירות קפואים": "🍓", "מטוגנים": "🍟", "בצקים": "🍕", "חד פעמי כללי": "📦", "מתוקים": "🍬", "אחר מטבח": "🧂", "חומרי ניקוי": "🧹", "אלכוהול": "🥃", "ציוד": "🎱"};
+INV = {"שתיה": ["בירה גולדסטאר 10%", "בירה שיינדי", "בירה מכבי", "בירה גולדסטאר לא מסונן", "בירה סטלה", "בירה קורונה", "בירה נגב", "בירה שפירא", "בירה גמס", "בירה אלכסנדר", "בירה מלכה", "בירה עמק האלה", "מים בטעם תפוח", "מים בטעם אפרסק", "מים בטעם ענבים", "אקסל", "בלו די רגיל", "בלו די ענבים", "בלו די אבטיח", "בלו די מלון תפוח", "פיוז טי אפרסק", "פיוז טי אבטיח", "סודה", "מים קטן", "קולה רגיל", "קולה זירו", "ספרייט רגיל", "ספרייט זירו", "פנטה", "מים גדול", "תפוזים גדול"], "שימורים": ["זיתים עם גרעין", "זיתים ירוקים פרוסות", "זיצים שחורים פרוסות", "שיפקה", "מלפפון חמוץ", "פטריות"], "רטבים": ["רוטב פיצה", "קטשופ", "שום מיונז", "מיונז רגיל", "צילי", "סחוג עדין", "סחוג חריף", "חמאה", "גבינה צהובה", "חלב"], "פירות קפואים": ["תות", "מנגו", "בננה", "תמר", "מלון"], "מטוגנים": ["ציפס", "כדורי פירה", "ציפס בטטה", "טבעות בצל"], "בצקים": ["פיצה", "פוקצה", "באגטים"], "חד פעמי כללי": ["כוסות לשייק ובירה", "כוסות פלסטיק רגיל", "כוסות קרטון", "צלחות לציפס", "צלחות למטוגנים קטן", "צלחות למאנציס", "צלחות לטוסטים", "צלחות לרטבים", "נייר לטוסט", "כפפות", "סינרים", "קיסמים", "מקלות לקפה", "קופסאות לגלי", "קשים", "שקיות הקפאה", "שקיות גופייה", "טישו", "נייר ניגוב גליל", "נייר מגבת", "נייר אפיה"], "מתוקים": ["גלי עם סוכר", "גלי רטוב בלי סוכר"], "אחר מטבח": ["סוכר גדול", "סוכר שקיות", "סוכרזית שקיות", "מלח", "שמן לטיגון", "שמן זית", "אורגנו", "תבלין צילי", "קפה שחור", "פולי קפה", "תה", "בוטנים מלוחים", "בוטנים מסוכרים", "בייגלה", "מאנציס"], "חומרי ניקוי": ["שקיות אשפה", "סמרטוט קטן", "סמרטוט רצפה", "חומר רצפות", "נוזל כלים", "אקונומיקה", "מסיר שומנים", "ספריי חלונות", "סקוצים לכלים", "מטאטא", "מגב"], "אלכוהול": ["וואן גוך אסאי", "וואן גוך אבטיח", "וואן גוך אפרסק", "רוברטו רבאלי רגיל", "רוברטו קבאלי מוחיטו", "רוברטו קבאלי מנגו", "גין", "ערק", "וויסקי דאבל בלאך", "וויסקי גולד לייבל", "וויסקי מונקי", "וויסקי שיבס", "וויסקי גלנליבט פאונדרס", "וויסקי גלנליבט 15", "וויסקי גלנמורנגי", "וויסקי מקאלן 12"], "ציוד": ["מקלות", "ראשים למקלות", "גירים", "מנורות", "חומר ניקוי לכדורים", "מברשת לשולחנות", "נייר למדפסת קבלות", "כפפות למשחק"]};
+var ICONS = {"שתיה": "🥤", "שימורים": "🥫", "רטבים": "🪹", "פירות קפואים": "🍓", "מטוגנים": "🍟", "בצקים": "🍕", "חד פעמי כללי": "📦", "מתוקים": "🍬", "אחר מטבח": "🧂", "חומרי ניקוי": "🧹", "אלכוהול": "🥃", "ציוד": "🎱", "הוספה חופשית": "✏️"};
 
 var sel = {}, grouped = null, dateStr = "";
 
@@ -282,11 +306,22 @@ function goToSummary() {
   dateStr = now.toLocaleDateString("he-IL") + " " + now.toLocaleTimeString("he-IL", {hour:"2-digit",minute:"2-digit"});
   var ti = Object.keys(sel).length, tq = Object.values(sel).reduce(function(a,b){return a+b;},0);
   var html = "<h3>&#128722; &#1512;&#1513;&#1497;&#1502;&#1514; &#1511;&#1504;&#1497;&#1497;&#1493;&#1514;</h3><div class='s-date'>" + dateStr + "</div>";
+  if (freeItems.length > 0) {
+    rows += "<tr><td colspan='2' style='background:#1a3a5c;color:#fff;font-weight:700;padding:9px 14px;text-align:right;font-size:14px;'>\u270f\ufe0f \u05d4\u05d5\u05e1\u05e4\u05d4 \u05d7\u05d5\u05e4\u05e9\u05d9\u05ea</td></tr>";
+    freeItems.forEach(function(fi, idx) {
+      rows += "<tr style='background:"+(idx%2===0?"#f4faf7":"#fff")+"'><td style='padding:8px 14px;font-size:13px;text-align:right;'>"+fi.item+"</td><td style='padding:8px 14px;text-align:center;width:55px;'><span style='background:#00a86b;color:#fff;border-radius:11px;padding:2px 10px;font-weight:700;font-size:12px;'>"+fi.qty+"</span></td></tr>";
+    });
+  }
   Object.keys(grouped).forEach(function(cat) {
     html += "<div class='s-sec'><div class='s-sec-title'>" + (ICONS[cat]||"") + " " + cat + "</div>";
     grouped[cat].forEach(function(x){ html += "<div class='s-item'><span>"+x.item+"</span><span class='s-qty'>"+x.qty+"</span></div>"; });
     html += "</div>";
   });
+  if (freeItems.length > 0) {
+    html += "<div class='s-sec'><div class='s-sec-title'>\u270f\ufe0f \u05d4\u05d5\u05e1\u05e4\u05d4 \u05d7\u05d5\u05e4\u05e9\u05d9\u05ea</div>";
+    freeItems.forEach(function(fi){ html += "<div class='s-item'><span>"+fi.item+"</span><span class='s-qty'>"+fi.qty+"</span></div>"; });
+    html += "</div>";
+  }
   html += "<div class='s-foot'>&#1505;&#1492;&quot;&#1499; " + ti + " &#1508;&#1512;&#1497;&#1496;&#1497;&#1501; &middot; " + tq + " &#1497;&#1495;&#1497;&#1491;&#1493;&#1514;</div>";
   document.getElementById("listOutput").innerHTML = html;
   document.getElementById("mainPage").classList.add("hidden");
@@ -299,6 +334,12 @@ function goToSummary() {
 function openPDF() {
   var ti = Object.keys(sel).length, tq = Object.values(sel).reduce(function(a,b){return a+b;},0);
   var rows = "";
+  if (freeItems.length > 0) {
+    rows += "<tr><td colspan='2' style='background:#1a3a5c;color:#fff;font-weight:700;padding:9px 14px;text-align:right;font-size:14px;'>\u270f\ufe0f \u05d4\u05d5\u05e1\u05e4\u05d4 \u05d7\u05d5\u05e4\u05e9\u05d9\u05ea</td></tr>";
+    freeItems.forEach(function(fi, idx) {
+      rows += "<tr style='background:"+(idx%2===0?"#f4faf7":"#fff")+"'><td style='padding:8px 14px;font-size:13px;text-align:right;'>"+fi.item+"</td><td style='padding:8px 14px;text-align:center;width:55px;'><span style='background:#00a86b;color:#fff;border-radius:11px;padding:2px 10px;font-weight:700;font-size:12px;'>"+fi.qty+"</span></td></tr>";
+    });
+  }
   Object.keys(grouped).forEach(function(cat) {
     rows += "<tr><td colspan='2' style='background:#1a3a5c;color:#fff;font-weight:700;padding:9px 14px;text-align:right;font-size:14px;'>" + (ICONS[cat]||"") + " " + cat + "</td></tr>";
     grouped[cat].forEach(function(x, idx) {
@@ -322,6 +363,17 @@ function sendEmail() {
   btn.disabled=true; sp.classList.add("show"); tx.textContent="\u05e9\u05d5\u05dc\u05d7...";
   emailjs.init(PK);
   var txt = "";
+  if (freeItems.length > 0) {
+    rows += "<tr><td colspan='2' style='background:#1a3a5c;color:#fff;font-weight:700;padding:9px 14px;text-align:right;font-size:14px;'>\u270f\ufe0f \u05d4\u05d5\u05e1\u05e4\u05d4 \u05d7\u05d5\u05e4\u05e9\u05d9\u05ea</td></tr>";
+    freeItems.forEach(function(fi, idx) {
+      rows += "<tr style='background:"+(idx%2===0?"#f4faf7":"#fff")+"'><td style='padding:8px 14px;font-size:13px;text-align:right;'>"+fi.item+"</td><td style='padding:8px 14px;text-align:center;width:55px;'><span style='background:#00a86b;color:#fff;border-radius:11px;padding:2px 10px;font-weight:700;font-size:12px;'>"+fi.qty+"</span></td></tr>";
+    });
+  }
+  if (freeItems.length > 0) {
+    txt += "[ \u05d4\u05d5\u05e1\u05e4\u05d4 \u05d7\u05d5\u05e4\u05e9\u05d9\u05ea ]\n";
+    freeItems.forEach(function(fi){ txt += "  " + fi.item + "  x" + fi.qty + "\n"; });
+    txt += "\n";
+  }
   Object.keys(grouped).forEach(function(cat) {
     txt += "[ " + cat + " ]\n";
     grouped[cat].forEach(function(x){ txt += "  " + x.item + "  x" + x.qty + "\n"; });
@@ -345,6 +397,12 @@ function sendEmail() {
 
 function fallbackMailto() {
   var body = "\u05e8\u05e9\u05d9\u05de\u05ea \u05e7\u05e0\u05d9\u05d9\u05d5\u05ea - \u05e1\u05e0\u05d5\u05e7\u05e8\n" + dateStr + "\n\n";
+  if (freeItems.length > 0) {
+    rows += "<tr><td colspan='2' style='background:#1a3a5c;color:#fff;font-weight:700;padding:9px 14px;text-align:right;font-size:14px;'>\u270f\ufe0f \u05d4\u05d5\u05e1\u05e4\u05d4 \u05d7\u05d5\u05e4\u05e9\u05d9\u05ea</td></tr>";
+    freeItems.forEach(function(fi, idx) {
+      rows += "<tr style='background:"+(idx%2===0?"#f4faf7":"#fff")+"'><td style='padding:8px 14px;font-size:13px;text-align:right;'>"+fi.item+"</td><td style='padding:8px 14px;text-align:center;width:55px;'><span style='background:#00a86b;color:#fff;border-radius:11px;padding:2px 10px;font-weight:700;font-size:12px;'>"+fi.qty+"</span></td></tr>";
+    });
+  }
   Object.keys(grouped).forEach(function(cat) {
     body += "[ " + cat + " ]\n";
     grouped[cat].forEach(function(x){ body += "  " + x.item + "  x" + x.qty + "\n"; });
@@ -362,6 +420,7 @@ function showToast(msg) {
 }
 
 function resetAll() {
+  freeItems = []; renderFreeItems(); updateFreeCnt();
   clearAll(); grouped=null;
   document.getElementById("mainPage").classList.remove("hidden");
   document.getElementById("topBar").classList.remove("hidden");
@@ -369,6 +428,79 @@ function resetAll() {
   document.getElementById("searchInput").value="";
   filterItems(""); window.scrollTo(0,0);
 }
+
+var freeItems = [];
+
+function addFreeItem() {
+  var input = document.getElementById("freeInput");
+  var qtyInput = document.getElementById("freeQty");
+  var name = input.value.trim();
+  var qty = Math.max(1, parseInt(qtyInput.value)||1);
+  if (!name) { input.focus(); return; }
+  
+  freeItems.push({item: name, qty: qty});
+  var key = "הוספה חופשית::" + name + "_" + Date.now();
+  sel[key] = qty;
+  
+  renderFreeItems();
+  input.value = "";
+  qtyInput.value = "1";
+  input.focus();
+  updateUI();
+  updateFreeCnt();
+}
+
+function changeFreeQty(d) {
+  var qi = document.getElementById("freeQty");
+  qi.value = Math.max(1, (parseInt(qi.value)||1) + d);
+}
+
+function removeFreeItem(idx) {
+  var item = freeItems[idx];
+  freeItems.splice(idx, 1);
+  // Remove from sel
+  Object.keys(sel).forEach(function(k) {
+    if (k.startsWith("הוספה חופשית::")) {
+      var parts = k.split("::");
+      if (parts[1] && parts[1].startsWith(item.item)) delete sel[k];
+    }
+  });
+  renderFreeItems();
+  updateUI();
+  updateFreeCnt();
+}
+
+function renderFreeItems() {
+  var list = document.getElementById("freeItemsList");
+  if (freeItems.length === 0) { list.innerHTML = ""; return; }
+  var html = "";
+  freeItems.forEach(function(fi, idx) {
+    html += "<div class='row sel' style='justify-content:space-between;'>" +
+      "<span class='itm-nm'>" + fi.item + "</span>" +
+      "<div style='display:flex;align-items:center;gap:8px;'>" +
+      "<span class='s-qty'>" + fi.qty + "</span>" +
+      "<button onclick='removeFreeItem(" + idx + ")' style='background:transparent;border:none;color:#f66;font-size:18px;cursor:pointer;padding:0 4px;line-height:1;'>&times;</button>" +
+      "</div></div>";
+  });
+  list.innerHTML = html;
+}
+
+function updateFreeCnt() {
+  var el = document.getElementById("cnt_free");
+  if (el) el.textContent = freeItems.length + " פריטים";
+  var cat = document.getElementById("freeCat");
+  if (cat) cat.classList.toggle("active", freeItems.length > 0);
+}
+
+// Open free cat by default
+window.addEventListener("load", function() {
+  var hdr = document.querySelector("#freeCat .cat-hdr");
+  var body = document.getElementById("freeCatBody");
+  if (hdr && body) { hdr.classList.add("open"); body.classList.add("open"); }
+  document.getElementById("freeInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") addFreeItem();
+  });
+});
 
 buildUI();
 
